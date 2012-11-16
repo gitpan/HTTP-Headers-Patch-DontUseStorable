@@ -20,4 +20,4 @@ requires:
 resources:
   homepage: http://metacpan.org/release/HTTP-Headers-Patch-DontUseStorable
   repository: http://github.com/sharyanto/perl-HTTP-Headers-Patch-DontUseStorable
-version: 0.01
+version: 0.02

@@ -8,17 +8,16 @@ no warnings;
 use Module::Patch 0.12 qw();
 use base qw(Module::Patch);
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 our %config;
 
-# the version not using Storable's dclone
-my $p_clone = sub {
+sub _clone($) {
     my $self = shift;
     my $clone = HTTP::Headers->new;
     $self->scan(sub { $clone->push_header(@_);} );
     $clone;
-};
+}
 
 sub patch_data {
     return {
@@ -28,7 +27,7 @@ sub patch_data {
                 action => 'replace',
                 mod_version => qr/^6\.0.+/,
                 sub_name => 'clone',
-                code => $p_clone,
+                code => \&_clone,
             },
         ],
     };
@@ -47,7 +46,7 @@ HTTP::Headers::Patch::DontUseStorable - Do not use Storable
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
